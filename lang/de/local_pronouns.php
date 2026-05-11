@@ -22,7 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Pronomen';
+$string['categoryname'] = 'Pronomen';
+$string['pluginname'] = 'Lokales Pronomen';
 $string['manage'] = 'Pronomen';
 $string['requesturl'] = 'u:find-Datenschnittstellen-URL';
 $string['requesturl_desc'] = 'URL zur XML-Datenschnittstelle von u:find, um weitere Nutzer/innen-Daten abrufen zu können (z.B. Titel vor/ nach, Organisationseinheit u.a.).';

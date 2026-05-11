@@ -23,7 +23,7 @@
  */
 
 $string['categoryname'] = 'Pronouns';
-$string['pluginname'] = 'Pronouns';
+$string['pluginname'] = 'Local pronouns';
 $string['manage'] = 'Pronouns';
 $string['requesturl'] = 'u:find data port URL';
 $string['requesturl_desc'] = 'The URL to the xml data port for requests in u:find, to retrieve additional user data (e.g. title before/ after, organisational unit, etc.).';

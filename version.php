@@ -32,4 +32,4 @@ $plugin->component = 'local_pronouns';
 $plugin->version = 2026042000.02;
 $plugin->release = 'v5.2-r0';
 $plugin->requires = 2025041400;
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_BETA;
