@@ -49,7 +49,7 @@ Admin Settings & Configuration
 * The plugin itself does not have any settings of its own.
 * The list of available pronouns can be customized directly in the manual profile field "Pronouns" and the profile field"s category via the Site administration (Users/ Accounts/ User profile fields).
 
-[Detailed information on the recommended configuration]([url](https://github.com/elearning-univie/moodle-local_pronouns/wiki))
+[Detailed information on the recommended configuration](https://github.com/elearning-univie/moodle-local_pronouns/wiki)
 
 
 Privacy API
