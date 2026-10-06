@@ -29,7 +29,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_pronouns';
-$plugin->version = 2026042000.02;
-$plugin->release = 'v5.2-r0';
+$plugin->version = 2026092801;
+$plugin->release = 'v5.0-r1';
 $plugin->requires = 2025041400;
-$plugin->maturity = MATURITY_BETA;
+$plugin->maturity = MATURITY_STABLE;

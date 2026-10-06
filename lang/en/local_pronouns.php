@@ -22,9 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['categoryname'] = 'Pronouns';
-$string['pluginname'] = 'Local pronouns';
-$string['manage'] = 'Pronouns';
-$string['requesturl'] = 'u:find data port URL';
-$string['requesturl_desc'] = 'The URL to the xml data port for requests in u:find, to retrieve additional user data (e.g. title before/ after, organisational unit, etc.).';
-$string['userinfofieldname'] = 'Pronomen (Pronouns)';
+$string['categoryname'] = 'Pronomen | Pronouns';
+$string['pluginname'] = 'Pronouns';
+$string['privacy:metadata'] = 'The local_pronouns plugin does not store any personal data itself. The pronouns are stored in a custom user profile field and copied to the alternate name of the user.';
+$string['userinfofieldname'] = 'Pronomen | Pronouns';

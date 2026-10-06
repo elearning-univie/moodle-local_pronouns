@@ -15,42 +15,94 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Private page module utility functions
+ * Internal library functions for local_pronouns.
  *
  * @package     local_pronouns
  * @copyright   2026 University of Vienna
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function pronouns_setup_user_info() : void {
+/**
+ * Menu options of the pronouns profile field, one option per line.
+ *
+ * @return string
+ */
+function local_pronouns_get_menu_options(): string {
+    return implode("\n", [
+        '-',
+        'sie/ihr | she/her',
+        'er/ihm | he/him',
+        'dey/dem | they/them',
+    ]);
+}
+
+/**
+ * Creates the pronouns user profile field (and its category) if it does not exist yet.
+ *
+ * @return void
+ */
+function local_pronouns_setup_user_info(): void {
     global $DB;
 
-    if (!$DB->get_record('user_info_field', ['shortname' => 'pronouns'])) {
-        $pronomencategoryid = get_or_create_category(get_string('categoryname', 'local_pronouns'));
-        create_user_info_field('pronouns', get_string('userinfofieldname', 'local_pronouns'),
-            'menu', $pronomencategoryid, 0, 1, '-sie/ihr | she/herer/ihm | he/himdey/dem | they/them');
+    if (!$DB->record_exists('user_info_field', ['shortname' => 'pronouns'])) {
+        $categoryid = local_pronouns_get_or_create_category(get_string('categoryname', 'local_pronouns'));
+        local_pronouns_create_user_info_field(
+            'pronouns',
+            get_string('userinfofieldname', 'local_pronouns'),
+            'menu',
+            $categoryid,
+            0,
+            1,
+            local_pronouns_get_menu_options()
+        );
     }
 
     purge_caches();
 }
 
-function get_or_create_category($categoryname) {
+/**
+ * Returns the id of the user profile field category with the given name, creating it if needed.
+ *
+ * @param string $categoryname Name of the category.
+ * @return int Id of the category.
+ */
+function local_pronouns_get_or_create_category(string $categoryname): int {
     global $DB;
-    $category = $DB->get_record('user_info_category', ['name' => $categoryname]);
 
-    if (!$category) {
-        $record = new stdClass();
-        $record->name = $categoryname;
-        $record->sortorder = $DB->count_records('user_info_category') + 1;
-        $categoryId = $DB->insert_record('user_info_category', $record);
-    } else {
-        $categoryId = $category->id;
+    $category = $DB->get_record('user_info_category', ['name' => $categoryname]);
+    if ($category) {
+        return (int) $category->id;
     }
 
-    return $categoryId;
+    $record = new stdClass();
+    $record->name = $categoryname;
+    $record->sortorder = $DB->count_records('user_info_category') + 1;
+    return (int) $DB->insert_record('user_info_category', $record);
 }
 
-function create_user_info_field($shortname, $name, $datatype, $categoryid, $sortorder = 0, $visible = 1, $param1 = '', $param2 = null) {
+/**
+ * Creates a new user profile field.
+ *
+ * @param string $shortname Short name of the field.
+ * @param string $name Display name of the field.
+ * @param string $datatype Data type of the field (e.g. menu, text).
+ * @param int $categoryid Id of the profile field category.
+ * @param int $sortorder Sort order within the category.
+ * @param int $visible Visibility of the field.
+ * @param string $param1 First parameter of the field (for menus: options, one per line).
+ * @param string|null $param2 Second parameter of the field.
+ * @return int Id of the new field.
+ */
+function local_pronouns_create_user_info_field(
+    string $shortname,
+    string $name,
+    string $datatype,
+    int $categoryid,
+    int $sortorder = 0,
+    int $visible = 1,
+    string $param1 = '',
+    ?string $param2 = null
+): int {
     global $DB;
 
     $record = new stdClass();
@@ -66,5 +118,5 @@ function create_user_info_field($shortname, $name, $datatype, $categoryid, $sort
     $record->timecreated = time();
     $record->timemodified = time();
 
-    $DB->insert_record('user_info_field', $record);
+    return (int) $DB->insert_record('user_info_field', $record);
 }

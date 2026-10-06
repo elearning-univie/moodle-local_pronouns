@@ -14,58 +14,45 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_pronouns;
+
 /**
  * Handling events when a user profile gets updated.
+ *
+ * Copies the value of the "pronouns" profile field into the user's alternatename.
  *
  * @package   local_pronouns
  * @copyright 2026 University of Vienna
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-namespace local_pronouns;
-
-defined('MOODLE_INTERNAL') || die();
-
-/**
- * Handling events when a user profile gets updated.
- *
- * @package   local_univie
- * @copyright 2024 University of Vienna
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class profile_updated {
     /**
      * Handling events when a user profile gets updated.
      *
-     * @param object $event
+     * @param \core\event\user_updated $event
+     * @return void
      */
-    public static function user_profile_updated($event) {
+    public static function user_profile_updated(\core\event\user_updated $event): void {
         global $DB;
 
-        $userid = $event->userid;
+        // The updated user is the object of the event; userid is the user who performed the update.
+        $userid = $event->relateduserid ?? $event->objectid;
 
-        if (is_siteadmin($userid) ){
-            if ($event->userid != $event->objectid) {
-                $userid = $event->objectid;
-            }
-        }
-
-        if (!($user = $DB->get_record('user', ['id' => $userid]))) {
+        if (!$DB->record_exists('user', ['id' => $userid])) {
             return;
         }
 
-        $sql = "SELECT id FROM {user_info_field} WHERE shortname LIKE 'pronouns'";
-        $fieldid = $DB->get_field_sql($sql);
-        if ($fieldid) {
-            $pronoun = $DB->get_field('user_info_data', 'data', ['userid' => $userid, 'fieldid' => $fieldid]);
-            if ($pronoun) {
-                if($pronoun != '-' AND ($pronoun != NULL OR $pronoun == "")) {
-                    $user->alternatename = " (" . $pronoun . ")";
-                    $DB->update_record('user', $user);
-                } else {
-                    $user->alternatename = "";
-                    $DB->update_record('user', $user);
-                }
-            }
+        $fieldid = $DB->get_field('user_info_field', 'id', ['shortname' => 'pronouns']);
+        if (!$fieldid) {
+            return;
         }
+
+        $pronoun = $DB->get_field('user_info_data', 'data', ['userid' => $userid, 'fieldid' => $fieldid]);
+        if ($pronoun === false || $pronoun === null || $pronoun === '') {
+            return;
+        }
+
+        $alternatename = ($pronoun !== '-') ? ' (' . $pronoun . ')' : '';
+        $DB->set_field('user', 'alternatename', $alternatename, ['id' => $userid]);
     }
 }
