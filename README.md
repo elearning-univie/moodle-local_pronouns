@@ -26,11 +26,11 @@ A student would like to display their preferred pronoun to other students and te
 How the plugin works?
 ------------------------------
 
-* Users can select a value from a dropdown menu with predefined values in a manual profile field called 'Pronouns' on their personal profile.
-* When the changes are saved, the value is stored in the user profile field 'Alternate name' (alternatename), located in the user table.
-* The value can be changed later or removed (by selecting '-') at any time.
+* Users can select a value from a dropdown menu with predefined values in a manual profile field called "Pronouns" on their personal profile.
+* When the changes are saved, the value is stored in the user profile field "Alternate name" (alternatename), located in the user table.
+* The value can be changed later or removed (by selecting "-") at any time.
 
-* To ensure that the pronoun is shown to other users in various places (e.g., the participant list, course grades or the profile), the field 'alternatename' must be added via the Site administration (Users/ Permissions/ Users policies) in the settings for 'Full name format' and/ or 'Alternative full name format'
+* To ensure that the pronoun is shown to other users in various places (e.g., the participant list, course grades or the profile), the field "alternatename" must be added via the Site administration (Users/ Permissions/ Users policies) in the settings for "Full name format" and/ or "Alternative full name format"
 
 
 Installation
@@ -47,7 +47,7 @@ Installation
 Admin Settings & Configuration
 --------------
 * The plugin itself does not have any settings of its own.
-* The list of available pronouns can be customized directly in the manual profile field 'Pronouns' and the profile field's category via the Site administration (Users/ Accounts/ User profile fields).
+* The list of available pronouns can be customized directly in the manual profile field "Pronouns" and the profile field"s category via the Site administration (Users/ Accounts/ User profile fields).
 
 Detailed information on the recommended configuration is in the wiki.
 
