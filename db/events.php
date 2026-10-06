@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Events for local_pronouns for the University of Vienna.
+ * Event observers for local_pronouns.
  *
  * @package   local_pronouns
  * @copyright 2026 University of Vienna

@@ -14,15 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_pronouns\privacy;
+
 /**
- * Languages configuration for the local_pronouns plugin.
+ * Privacy provider for local_pronouns.
+ *
+ * The plugin does not store personal data itself. The pronouns are kept in a core user profile field
+ * and in the core alternatename user field, both handled by the core privacy providers.
  *
  * @package   local_pronouns
  * @copyright 2026 University of Vienna
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-$string['categoryname'] = 'Pronomen | Pronouns';
-$string['pluginname'] = 'Pronomen';
-$string['privacy:metadata'] = 'Das Plugin local_pronouns speichert selbst keine personenbezogenen Daten. Die Pronomen werden in einem benutzerdefinierten Profilfeld gespeichert und in den alternativen Namen der Person übernommen.';
-$string['userinfofieldname'] = 'Pronomen | Pronouns';
+class provider implements \core_privacy\local\metadata\null_provider {
+    /**
+     * Get the language string identifier with the component's language file to explain why this plugin stores no data.
+     *
+     * @return string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
+}
